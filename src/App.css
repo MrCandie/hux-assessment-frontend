@@ -1,0 +1,23 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+.active {
+  font-weight: bold;
+  color: #ef4f51;
+  background-color: rgba(239, 79, 81, 0.1);
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
