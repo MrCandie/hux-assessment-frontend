@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 export default function SideMenu() {
   const navigate = useNavigate();
   return (
-    <nav className="w-[20%] hidden pt-10 h-full flex items-center lg:flex-col gap-4 bg-white">
+    <nav className="w-[20%] hidden pt-10 h-full lg:flex items-center lg:flex-col gap-4 bg-white">
       <div className="">
         <Image
           src="/logo.png"
