@@ -35,6 +35,17 @@ export async function listContact(token) {
   return response.data;
 }
 
+export async function createContact(token, data) {
+  const response = await axios.post(`${API_URL}/contact`, data, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data;
+}
+
 export async function getContact(token, id) {
   const response = await axios.get(`${API_URL}/contact/${id}`, {
     headers: {

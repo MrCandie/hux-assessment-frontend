@@ -8,6 +8,7 @@ export default function Select({
   value,
   onChange,
   options = [],
+  required = true,
 }) {
   return (
     <div className="w-full flex items-start gap-4 flex-col">
@@ -22,7 +23,7 @@ export default function Select({
         value={value}
         onChange={onChange}
         className="outline-none bg-gray-100 rounded-md border w-full p-4"
-        required>
+        required={required}>
         <option>{placeholder}</option>
         {options.map((el, i) => (
           <option key={i} value={el}>
@@ -42,4 +43,5 @@ Select.propTypes = {
   placeholder: PropTypes.string,
   onChange: PropTypes.func,
   options: PropTypes.array,
+  required: PropTypes.bool,
 };

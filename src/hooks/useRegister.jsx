@@ -1,20 +1,24 @@
 import { useState } from "react";
-import { login } from "../utils/https";
 import { useNavigate } from "react-router-dom";
 import validator from "validator";
-import { useDispatch } from "react-redux";
-import { storeToken } from "../redux/AuthSlice";
+import { signup } from "../utils/https";
 
-export default function useLogin() {
-  const [formData, setFormData] = useState({ email: "", password: "" });
-  const [loading, setLoading] = useState(false);
+const upperCase = /[A-Z]/g;
+const specialCharacter = /[-._!"`'#%&,:;<>=@{}~\$\(\)\*\+\/\\\?\[\]\^\|]+/;
+const lowerCase = /[a-z]/g;
+const numbers = /[0-9]/g;
+
+export default function useRegister() {
   const [progress, setProgress] = useState(0);
+  const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [type, setType] = useState("");
   const [message, setMessage] = useState("");
-
-  const dispatch = useDispatch();
-
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
   const navigate = useNavigate();
 
   async function handleSubmit(e) {
@@ -34,19 +38,51 @@ export default function useLogin() {
       return;
     }
 
+    if (formData.password.length < 8) {
+      setType("warning");
+      setMessage("Password cannot be less than 8 characters!");
+      setOpen(true);
+      return;
+    }
+
+    if (!formData.password.match(upperCase)) {
+      setType("warning");
+      setMessage("Password must contain an uppercase character!");
+      setOpen(true);
+      return;
+    }
+
+    if (!formData.password.match(lowerCase)) {
+      setType("warning");
+      setMessage("Password must contain a lowercase character!");
+      setOpen(true);
+      return;
+    }
+    if (!formData.password.match(numbers)) {
+      setType("warning");
+      setMessage("Password must contain a number!");
+      setOpen(true);
+      return;
+    }
+
+    if (!formData.password.match(specialCharacter)) {
+      setType("warning");
+      setMessage("Password must contain a special character!");
+      setOpen(true);
+      return;
+    }
+
     try {
       setLoading(true);
       setProgress(20);
       setProgress(40);
 
-      const res = await login(formData);
+      await signup(formData);
       setType("success");
       setMessage("Login successful");
       setOpen(true);
 
-      dispatch(storeToken(res.token));
-
-      navigate("/contact");
+      navigate("/login");
 
       setProgress(60);
       setProgress(80);

@@ -7,6 +7,7 @@ export default function Input({
   placeholder,
   value,
   onChange,
+  required = true,
 }) {
   return (
     <div className="w-full flex items-start gap-4 flex-col">
@@ -22,7 +23,7 @@ export default function Input({
         value={value}
         onChange={onChange}
         className="outline-none bg-gray-100 rounded-md border w-full p-4"
-        required
+        required={required}
       />
     </div>
   );
@@ -35,4 +36,5 @@ Input.propTypes = {
   value: PropTypes.string,
   placeholder: PropTypes.string,
   onChange: PropTypes.func,
+  required: PropTypes.bool,
 };
