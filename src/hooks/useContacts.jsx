@@ -5,6 +5,7 @@ import { listContact } from "../utils/https";
 export default function useContacts() {
   const [list, setList] = useState([]);
   const [progress, setProgress] = useState(0);
+  const [search, setSearch] = useState("");
 
   const token = useSelector((state) => state.auth.token);
 
@@ -14,7 +15,19 @@ export default function useContacts() {
         setProgress(20);
         setProgress(40);
         const res = await listContact(token);
-        setList(res?.data);
+        if (search) {
+          const value = search?.toLowerCase()?.trim();
+          const data = res?.data;
+          const filtered = data?.filter(
+            (el) =>
+              el.firstName.includes(value) ||
+              el.lastName.includes(value) ||
+              el.email.includes(value)
+          );
+          setList(filtered);
+        } else {
+          setList(res?.data);
+        }
         setProgress(60);
         setProgress(80);
         setProgress(100);
@@ -25,7 +38,7 @@ export default function useContacts() {
       }
     }
     fetchData();
-  }, [token]);
+  }, [token, search]);
 
-  return { list, progress, setProgress };
+  return { list, progress, setProgress, setSearch, search, setList };
 }

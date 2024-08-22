@@ -8,7 +8,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 
 export default function Contact() {
-  const { list, progress, setProgress } = useContacts();
+  const { list, progress, setProgress, setList } = useContacts();
   const navigate = useNavigate();
 
   return (
@@ -16,7 +16,7 @@ export default function Contact() {
       <Loader progress={progress} setProgress={setProgress} />
       <AppWrapper show={false} title="Contacts">
         <div className="w-full p-4 flex flex-col gap-10 pb-4 overflow-scroll h-full">
-          <Search />
+          <Search list={list} setList={setList} />
           <div className="w-full rounded-md flex items-start justify-center gap-4 flex-wrap overflow-scroll">
             <h2 className="text-base lg:text-[18px] font-bold text-[#333] text-start">
               My contacts

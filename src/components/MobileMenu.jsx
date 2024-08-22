@@ -3,7 +3,6 @@ import { IoCloseSharp } from "react-icons/io5";
 import Menu from "./Menu";
 import Image from "./Image";
 import PropTypes from "prop-types";
-import Slide from "../animations/Slide";
 import SlideX from "../animations/SlideX";
 
 export default function MobileMenu({ closeModal }) {
