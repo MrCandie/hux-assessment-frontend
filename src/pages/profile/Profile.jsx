@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AlertComponent from "../../components/Alert";
 import AppWrapper from "../../components/AppWrapper";
 import Input from "../../components/Input";
@@ -20,6 +20,22 @@ export default function Profile() {
     message,
   } = useProfile();
   const [showModal, setShowModal] = useState(false);
+  const [label, setLabel] = useState("");
+
+  const name = formData?.name;
+
+  useEffect(() => {
+    const abbreviation = name.split(" ");
+
+    let alias;
+    if (abbreviation.length > 1) {
+      alias = `${abbreviation[0][0]?.toUpperCase()}${abbreviation[1][0]?.toUpperCase()}`;
+      setLabel(alias);
+      return;
+    }
+    alias = `${abbreviation[0][0]?.toUpperCase()}${abbreviation[0][1]?.toUpperCase()}`;
+  }, [name]);
+
   return (
     <>
       {showModal && (
@@ -38,6 +54,9 @@ export default function Profile() {
       <AppWrapper title="Profile">
         <div className="w-full flex items-center justify-center h-full">
           <div className="w-full lg:w-[50%] bg-white justify-center mx-auto p-4 flex flex-col gap-4">
+            <div className=" w-[100px] mb-10 mx-auto lg:w-[150px] h-[100px] lg:h-[150px] flex items-center justify-center rounded-full bg-red-100 font-bold text-[30px] text-black">
+              {label}
+            </div>
             <Input
               onChange={(e) =>
                 setFormData({ ...formData, name: e.target.value })

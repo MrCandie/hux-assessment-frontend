@@ -9,7 +9,7 @@ export default function ContactDetails({ contact }) {
   const [showModal, setShowModal] = useState(false);
   const [label, setLabel] = useState("");
   const navigate = useNavigate();
-  const name = `${contact?.firstName} ${contact?.lastName}`;
+  const name = `${contact?.firstName || ""} ${contact?.lastName || ""}`;
 
   useEffect(() => {
     const abbreviation = name.split(" ");
