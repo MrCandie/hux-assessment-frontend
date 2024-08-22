@@ -14,7 +14,7 @@ export default function Hero() {
               color:
                 "linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%)",
             }}
-            className="font-extrabold text-[40px] lg:text-[60px] text-white flex">
+            className="font-extrabold text-[34px] lg:text-[60px] text-white flex">
             Your{" "}
             <motion.div
               animate={{
