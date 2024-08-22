@@ -1,17 +1,12 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import validator from "validator";
-import { createContact } from "../utils/https";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { updateProfile, viewProfile } from "../utils/https";
 
-export default function useCreateContact() {
+export default function useProfile() {
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    phone: "",
+    name: "",
     email: "",
-    birthday: "",
-    relationship: "",
+    createdAt: "",
   });
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -21,36 +16,47 @@ export default function useCreateContact() {
 
   const token = useSelector((state) => state.auth.token);
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        setProgress(20);
+        setProgress(40);
+        const res = await viewProfile(token);
+        setFormData({
+          name: res?.data?.name,
+          email: res?.data?.email,
+          createdAt: res?.data?.createdAt,
+        });
+        setProgress(60);
+        setProgress(80);
+        setProgress(100);
+      } catch (error) {
+        setProgress(80);
+        setProgress(100);
+        console.log(error);
+      }
+    }
+    fetchData();
+  }, [token]);
 
   async function handleSubmit(e) {
     e.preventDefault();
-
-    if (!formData.firstName || !formData.lastName || !formData.phone) {
-      setType("warning");
-      setMessage("First name, last name and phone number are required!");
-      setOpen(true);
-      return;
-    }
-
-    if (formData.email && !validator.isEmail(formData.email)) {
-      setType("warning");
-      setMessage("Invalid email address!");
-      setOpen(true);
-      return;
-    }
 
     try {
       setLoading(true);
       setProgress(20);
       setProgress(40);
 
-      await createContact(token, formData);
+      const res = await updateProfile(token, { name: formData.name });
       setType("success");
-      setMessage("Contact created");
+      setMessage("Contact updated");
       setOpen(true);
 
-      navigate("/contact");
+      setFormData({
+        name: res?.data?.name,
+        email: res?.data?.email,
+        createdAt: res?.data?.createdAt,
+      });
 
       setProgress(60);
       setProgress(80);
@@ -69,14 +75,14 @@ export default function useCreateContact() {
 
   return {
     formData,
-    setFormData,
-    loading,
+    setProgress,
     progress,
     open,
     type,
-    message,
+    loading,
+    setFormData,
     handleSubmit,
     setOpen,
-    setProgress,
+    message,
   };
 }

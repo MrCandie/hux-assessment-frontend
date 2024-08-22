@@ -13,6 +13,11 @@
   background-color: rgba(239, 79, 81, 0.1);
 }
 
+button:disabled {
+  background-color: gray;
+  opacity: 80%;
+}
+
 @keyframes spin {
   from {
     transform: rotate(0deg);

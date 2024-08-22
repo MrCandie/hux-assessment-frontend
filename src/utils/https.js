@@ -56,3 +56,56 @@ export async function getContact(token, id) {
 
   return response.data;
 }
+
+export async function updateContact(token, id, data) {
+  const response = await axios.patch(`${API_URL}/contact/${id}`, data, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data;
+}
+export async function deleteContact(token, id) {
+  const response = await axios.delete(`${API_URL}/contact/${id}`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data;
+}
+
+export async function viewProfile(token) {
+  const response = await axios.get(`${API_URL}/user`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data;
+}
+export async function updateProfile(token, data) {
+  const response = await axios.patch(`${API_URL}/user`, data, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data;
+}
+
+export async function deleteProfile(token) {
+  const response = await axios.delete(`${API_URL}/user`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data;
+}

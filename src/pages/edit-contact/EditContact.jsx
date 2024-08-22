@@ -1,25 +1,41 @@
+import AlertComponent from "../../components/Alert";
 import AppWrapper from "../../components/AppWrapper";
-import Input from "../../components/Input";
-import Select from "../../components/Select";
+import ContactForm from "../../components/ContactForm";
+import Loader from "../../components/Loader";
+import useEditContact from "../../hooks/useEditContact";
 
 export default function EditContact() {
+  const {
+    formData,
+    setFormData,
+    loading,
+    progress,
+    open,
+    type,
+    message,
+    handleSubmit,
+    setOpen,
+    setProgress,
+  } = useEditContact();
   return (
-    <AppWrapper title="Edit Contact">
-      <div className="w-full flex items-center jjustify-center h-full">
-        <div className="w-full lg:w-[50%] bg-white justify-center mx-auto p-4 flex flex-col gap-4">
-          <div className="w-full flex items-center gap-4 flex-col lg:flex-row">
-            <Input label="First Name" placeholder="John" />
-            <Input label="Last Name" placeholder="Doe" />
-          </div>
-          <Input label="Phone Number" placeholder="Enter phone number here" />
-          <Input label="Email" placeholder="example@gmail.com" />
-          <Input label="Birthday" type="date" />
-          <Select label="Relationship" placeholder="Select relationship" />
-          <button className="w-full bg-[#ef4f51] p-4 text-white font-medium text-center rounded-md hover:rounded-md hover:opacity-80">
-            Save
-          </button>
+    <>
+      <AlertComponent
+        open={open}
+        type={type}
+        message={message}
+        onClose={() => setOpen(false)}
+      />
+      <Loader progress={progress} setProgress={setProgress} />
+      <AppWrapper title="Edit Contact">
+        <div className="w-full flex items-center jjustify-center h-full">
+          <ContactForm
+            formData={formData}
+            setFormData={setFormData}
+            loading={loading}
+            handleSubmit={handleSubmit}
+          />
         </div>
-      </div>
-    </AppWrapper>
+      </AppWrapper>
+    </>
   );
 }

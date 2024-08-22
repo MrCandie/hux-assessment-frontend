@@ -24,10 +24,16 @@ export default function ContactDetails({ contact }) {
   }, [name]);
   return (
     <>
-      {showModal && <DeleteModal closeModal={() => setShowModal(false)} />}
+      {showModal && (
+        <DeleteModal
+          id={contact?.id}
+          name={`${contact?.firstName} ${contact?.lastName}`}
+          closeModal={() => setShowModal(false)}
+        />
+      )}
       <div className="w-full bg-white h-full p-4 flex flex-col items-center">
         <div className="w-full flex items-end justify-end gap-4">
-          <button onClick={() => navigate(`/contact/cdfsfds/edit`)}>
+          <button onClick={() => navigate(`/contact/${contact?.id}/edit`)}>
             <MdEdit size={20} />
           </button>
           <button onClick={() => setShowModal(true)}>

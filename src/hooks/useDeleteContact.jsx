@@ -1,18 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import validator from "validator";
-import { createContact } from "../utils/https";
+import { deleteContact } from "../utils/https";
 import { useSelector } from "react-redux";
 
-export default function useCreateContact() {
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    phone: "",
-    email: "",
-    birthday: "",
-    relationship: "",
-  });
+export default function useDeleteContact(id) {
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [open, setOpen] = useState(false);
@@ -26,31 +17,17 @@ export default function useCreateContact() {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    if (!formData.firstName || !formData.lastName || !formData.phone) {
-      setType("warning");
-      setMessage("First name, last name and phone number are required!");
-      setOpen(true);
-      return;
-    }
-
-    if (formData.email && !validator.isEmail(formData.email)) {
-      setType("warning");
-      setMessage("Invalid email address!");
-      setOpen(true);
-      return;
-    }
-
     try {
       setLoading(true);
       setProgress(20);
       setProgress(40);
 
-      await createContact(token, formData);
+      await deleteContact(token, id);
       setType("success");
-      setMessage("Contact created");
+      setMessage("Contact deleted");
       setOpen(true);
 
-      navigate("/contact");
+      navigate(`/contact`);
 
       setProgress(60);
       setProgress(80);
@@ -68,8 +45,6 @@ export default function useCreateContact() {
   }
 
   return {
-    formData,
-    setFormData,
     loading,
     progress,
     open,

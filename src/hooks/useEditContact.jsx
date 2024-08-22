@@ -1,10 +1,10 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import validator from "validator";
-import { createContact } from "../utils/https";
+import { getContact, updateContact } from "../utils/https";
 import { useSelector } from "react-redux";
 
-export default function useCreateContact() {
+export default function useEditContact() {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -23,15 +23,37 @@ export default function useCreateContact() {
 
   const navigate = useNavigate();
 
+  const params = useParams();
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        setProgress(20);
+        setProgress(40);
+        const res = await getContact(token, params.id);
+        const data = res?.data;
+        setFormData({
+          firstName: data?.firstName,
+          lastName: data?.lastName,
+          email: data?.email,
+          phone: data?.phone,
+          relationship: data?.relationship,
+          birthday: data?.birthday,
+        });
+        setProgress(60);
+        setProgress(80);
+        setProgress(100);
+      } catch (error) {
+        setProgress(80);
+        setProgress(100);
+        console.log(error);
+      }
+    }
+    fetchData();
+  }, [token, params]);
+
   async function handleSubmit(e) {
     e.preventDefault();
-
-    if (!formData.firstName || !formData.lastName || !formData.phone) {
-      setType("warning");
-      setMessage("First name, last name and phone number are required!");
-      setOpen(true);
-      return;
-    }
 
     if (formData.email && !validator.isEmail(formData.email)) {
       setType("warning");
@@ -45,12 +67,12 @@ export default function useCreateContact() {
       setProgress(20);
       setProgress(40);
 
-      await createContact(token, formData);
+      await updateContact(token, params.id, formData);
       setType("success");
-      setMessage("Contact created");
+      setMessage("Contact updated");
       setOpen(true);
 
-      navigate("/contact");
+      navigate(`/contact/${params?.id}`);
 
       setProgress(60);
       setProgress(80);
