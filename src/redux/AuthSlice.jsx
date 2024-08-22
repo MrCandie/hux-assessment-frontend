@@ -8,6 +8,7 @@ const authSlice = createSlice({
   name: "token",
   initialState: {
     token: token || "",
+    isAuth: !!token,
   },
   reducers: {
     storeToken: (state, action) => {

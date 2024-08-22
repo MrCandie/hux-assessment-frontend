@@ -5,8 +5,17 @@ import Input from "../../components/Input";
 import Loader from "../../components/Loader";
 import useProfile from "../../hooks/useProfile";
 import DeleteAccountModal from "./DeleteAccountModal";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export default function Profile() {
+  const navigate = useNavigate();
+  const isAuth = useSelector((state) => state.auth.isAuth);
+
+  useEffect(() => {
+    if (!isAuth) navigate("/");
+  }, [isAuth, navigate]);
+
   const {
     formData,
     setProgress,

@@ -6,10 +6,18 @@ import Loader from "../../components/Loader";
 import EmptyState from "../../components/EmptyState";
 import { AiOutlinePlus } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 export default function Contact() {
   const { list, progress, setProgress, setList } = useContacts();
   const navigate = useNavigate();
+
+  const isAuth = useSelector((state) => state.auth.isAuth);
+
+  useEffect(() => {
+    if (!isAuth) navigate("/");
+  }, [isAuth, navigate]);
 
   return (
     <>

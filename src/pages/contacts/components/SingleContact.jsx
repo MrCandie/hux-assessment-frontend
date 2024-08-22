@@ -14,6 +14,7 @@ export default function SingleContact({ contact }) {
       text: contact?.phone,
       url: "",
     };
+
     try {
       if (navigator.share && navigator.canShare(shareData)) {
         await navigator.share(shareData);
