@@ -16,14 +16,16 @@ export default function Search({ setList }) {
       setLoading(true);
       const res = await listContact(token);
 
-      const value = e.target.value?.toLowerCase()?.trim();
+      const value = search?.toLowerCase()?.trim();
+
       const data = res?.data;
       const filtered = data?.filter(
         (el) =>
-          el.firstName.includes(value) ||
-          el.lastName.includes(value) ||
-          el.email.includes(value)
+          el.firstName?.toLowerCase().includes(value) ||
+          el.lastName?.toLowerCase().includes(value) ||
+          el.email?.toLowerCase().includes(value)
       );
+      console.log(filtered);
       setLoading(false);
       setList(filtered);
       setSearch("");
