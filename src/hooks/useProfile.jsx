@@ -49,7 +49,7 @@ export default function useProfile() {
 
       const res = await updateProfile(token, { name: formData.name });
       setType("success");
-      setMessage("Contact updated");
+      setMessage("Profile updated");
       setOpen(true);
 
       setFormData({
