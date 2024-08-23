@@ -38,11 +38,15 @@ export default function Profile() {
 
     let alias;
     if (abbreviation.length > 1) {
-      alias = `${abbreviation[0][0]?.toUpperCase()}${abbreviation[1][0]?.toUpperCase()}`;
+      alias = `${abbreviation[0][0]?.toUpperCase() || ""}${
+        abbreviation[1][0]?.toUpperCase() || ""
+      }`;
       setLabel(alias);
       return;
     }
-    alias = `${abbreviation[0][0]?.toUpperCase()}${abbreviation[0][1]?.toUpperCase()}`;
+    alias = `${abbreviation[0][0]?.toUpperCase() || ""}${
+      abbreviation[0][1]?.toUpperCase() || ""
+    }`;
   }, [name]);
 
   return (
