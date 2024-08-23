@@ -61,7 +61,7 @@ export default function Register() {
         </form>
         <Link to="/login">
           {`Already have an account?`}{" "}
-          <span className="text-blue-600">Register</span>
+          <span className="text-blue-600">Login</span>
         </Link>
       </AuthWrapper>
     </>
