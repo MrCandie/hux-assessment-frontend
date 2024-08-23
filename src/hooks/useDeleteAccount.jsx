@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { deleteProfile } from "../utils/https";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteToken } from "../redux/AuthSlice";
 
 export default function useDeleteAccount(name) {
   const [loading, setLoading] = useState(false);
@@ -9,6 +10,7 @@ export default function useDeleteAccount(name) {
   const [value, setValue] = useState("");
 
   const token = useSelector((state) => state.auth.token);
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
@@ -21,8 +23,10 @@ export default function useDeleteAccount(name) {
       setProgress(20);
       setProgress(40);
       await deleteProfile(token);
+      dispatch(deleteToken());
       alert("Account deleted");
       navigate(`/register`);
+      window.location.reload();
 
       setProgress(60);
       setProgress(80);
