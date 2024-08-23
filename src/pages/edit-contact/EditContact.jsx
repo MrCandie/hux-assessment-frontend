@@ -43,6 +43,7 @@ export default function EditContact() {
             setFormData={setFormData}
             loading={loading}
             handleSubmit={handleSubmit}
+            title="Save"
           />
         </div>
       </AppWrapper>

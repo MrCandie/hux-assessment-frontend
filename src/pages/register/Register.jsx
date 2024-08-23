@@ -59,8 +59,8 @@ export default function Register() {
           />
           <AuthButton title={loading ? "Loading..." : "Sign Up"} />
         </form>
-        <Link to="/register">
-          {`Don't have an account?`}{" "}
+        <Link to="/login">
+          {`Already have an account?`}{" "}
           <span className="text-blue-600">Register</span>
         </Link>
       </AuthWrapper>

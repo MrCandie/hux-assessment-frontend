@@ -7,6 +7,7 @@ export default function ContactForm({
   formData,
   setFormData,
   handleSubmit,
+  title,
 }) {
   return (
     <form
@@ -77,7 +78,7 @@ export default function ContactForm({
       <button
         type="submit"
         className="w-full bg-[#ef4f51] p-4 text-white font-medium text-center rounded-md hover:rounded-md hover:opacity-80">
-        {loading ? "Loading..." : "Create"}
+        {loading ? "Loading..." : title || "Create"}
       </button>
     </form>
   );
@@ -88,4 +89,5 @@ ContactForm.propTypes = {
   formData: PropTypes.object,
   setFormData: PropTypes.func,
   loading: PropTypes.bool,
+  title: PropTypes.string,
 };
