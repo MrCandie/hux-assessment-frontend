@@ -14,8 +14,11 @@ const authSlice = createSlice({
     storeToken: (state, action) => {
       localStorage.setItem("authToken", action.payload);
     },
+    deleteToken: () => {
+      localStorage.removeItem("authToken");
+    },
   },
 });
 
 export default authSlice.reducer;
-export const { storeToken } = authSlice.actions;
+export const { storeToken, deleteToken } = authSlice.actions;
