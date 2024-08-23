@@ -31,7 +31,7 @@ export default function Profile() {
   const [showModal, setShowModal] = useState(false);
   const [label, setLabel] = useState("");
 
-  const name = formData?.name;
+  const name = formData?.name || "";
 
   useEffect(() => {
     const abbreviation = name.split(" ");
